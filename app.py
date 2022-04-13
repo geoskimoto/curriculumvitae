@@ -21,9 +21,8 @@ encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 # app.title = 'Favicon'
 app.title = "NSteele CV"
+
 server = app.server
-
-
 app.layout = dbc.Container([
     html.Div(
         [
@@ -103,7 +102,8 @@ app.layout = dbc.Container([
                                                 ),
                                                 dbc.Col(id='my-skills',
                                                         children=[
-                                                            html.Div(id='rose-fig')
+                                                            html.Div(id='rose-fig'),
+                                                            dcc.Tooltip(id="graph-tooltip")
                                                         ]
                                                         )
                                                 ]
