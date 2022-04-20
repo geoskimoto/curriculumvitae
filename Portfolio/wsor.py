@@ -62,7 +62,6 @@ wsor_carousel = dbc.Carousel(
 wsor = [
 
     dbc.Card([
-
         html.H1(["Water Supply Outlook Reporting App"]),
         html.P([
             html.Ul([
