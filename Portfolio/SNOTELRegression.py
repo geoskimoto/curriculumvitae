@@ -1,8 +1,53 @@
-from dash import html
+from dash import html, dcc
 import dash_bootstrap_components as dbc
 
+regr_carousel = dbc.Carousel(
+    items=[
+        {
+            "key": "1",
+            "src": "https://i.ibb.co/HY1RVmJ/regr-tool-train.png",
+            # "img_class_name": 'd-block w-50',
+            # "img_style": {
+            #     "width":"50%",
+            #     "height": "75vw"
+            # }
+        },
+        {
+            "key": "2",
+            "src": "https://i.ibb.co/f95c70c/regr-tool-results.png",
+            # "img_class_name": 'center'
+            # 'img_style': {
+            #         'border-radius': '10%',
+            #         'display': 'block',
+            #         'margin-left': 'auto',
+            #         'margin-right': 'auto',
+            #         'width': '50%',
+            # }
+        },
+        {
+            "key": "3",
+            "src": "https://i.ibb.co/dfwFhVP/regr-tool-map.png",
+            "header": "Spatial information provided for choosing predictor sites.",
+            # "img_class_name": 'center'
+            # 'img_style': {
+            #         'border-radius': '10%',
+            #         'display': 'block',
+            #         'margin-left': 'auto',
+            #         'margin-right': 'auto',
+            #         'width': '50%',
+            # }
+        },
+        {
+            "key": "4",
+            "src": "https://i.ibb.co/jMy877R/regr-tool-db.png",
+        },
 
-            
+    ],
+    controls=True,
+    indicators=True,
+    variant='dark'
+)
+
 snotel_regr_tool = [
     
     dbc.Card([
@@ -10,36 +55,54 @@ snotel_regr_tool = [
         html.H1(["Snotel Regression Tool"]),
         html.P([
             html.Ul([
-                html.Li("Note: This public version is hosted on a cold server and may take up to 40s to load. Login is username: user, password: snotel"
+                html.Hr(),
+                html.Li([
+                    'Demonstration version of this application can be found ',
+                        html.A('here.',
+                            href='https://snotel-regression-tool.herokuapp.com/',
+                            target='_blank'),
+                ]),
+                html.Li([
+                    'Login - username: user, password: snotel.  Note - may take up to 40s to load initially as server needs to start up.'
+                ]),
+                html.Hr(),
+                html.Li(
+                    html.P(
+                        "Tool is used to estimate missing or erroneous data from the network of USDA NRCS Snow Telemetry (SNOTEL) snowpack measurement stations using nearby stations and/or other sensors at the same station."
+                    )
                 ),
                 html.Li(
-                    "Tool is used to estimated missing or erroneous data from the network of USDA NRCS Snow Telemetry (SNOTEL) snowpack measurement stations using nearby stations and/or other sensors at the same station."
+                    html.P(
+                        "Data is realtime - connected to the National Weather and Climate Center's Air and Water Database via APIs.)"
+                    )
                 ),
                 html.Li(
-                    "Data is realtime - connected to NRCS Air and Water Database via a Rest API (https://api.snowdata.info/) and SOAP API (https://www.nrcs.usda.gov/wps/portal/wcc/home/dataAccessHelp/webService/)"
+                    html.P(
+                        "Several options available to estimate the data via regression: linear, kernel trick (rbf) with support-vector machines, and decision tree methods."
+                    )
                 ),
                 html.Li(
-                    "Several options available to estimate the data via regression: linear, kernel trick (rbf), support-vector machines, and decision tree methods."
+                    html.P(
+                        "Well fit models and their configurations can be pickeled and saved to a sql database for which a future API will be built to automatically deliver estimates to other applications."
+                    )
                 ),
-                html.Li(
-                    "Well fitting models and their configurations can then be pickeled/saved to a sql database for which an API then uses to automatically deliver future estimates to other applications."
-                ),
-                html.Li(
-                    "Please email me if you'd like to see the code base behind this application."
-                )
+                html.Hr(),
+                dcc.Link(children=['Code from Github Repository'],
+                         href='https://github.com/geoskimoto/snotel-regression-tool'),
+                html.Hr()
             ]
             )
             ]
         )
         ]
     ),
-
+    html.Div([regr_carousel]),
     
-    dbc.Card([
-        html.Embed(src='https://snotel-regression-tool.herokuapp.com/',
-                   style={'width':'100%', 'height': '75vw'} 
-                   )
-    ])
+    # dbc.Card([
+    #     html.Embed(src='https://snotel-regression-tool.herokuapp.com/',
+    #                style={'width':'100%', 'height': '75vw'}
+    #                )
+    # ])
     
     
 ]

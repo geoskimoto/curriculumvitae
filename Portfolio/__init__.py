@@ -4,16 +4,19 @@ from maindash import app
 from dash.dependencies import Input, Output
 from Portfolio.SNOTELRegression import snotel_regr_tool
 from Portfolio.KP_WaterChem import kp_waterchem
-
+from Portfolio.wsor import wsor
+from Portfolio.other_projects import other_projects
 projects = [
     {"label": "SNOTEL Regression Tool", "value": "snotel-regression-tool"},
-    {"label": "SNOTEL Anomaly Detection", "value": "snotel-anomaly_detection"},
-    {"label": "SNOTEL Change Detection", "value": "snotel-change-detection"},
-    {"label": "Phantom Ranch, Grand Canyon Groundwater Model", "value": "pr-gndwater-model"},
+    # {"label": "SNOTEL Anomaly Detection", "value": "snotel-anomaly_detection"},
+    {'label': 'Automated Water Supply Outlook Report', 'value': 'wsor'},
+    # {"label": "SNOTEL Change Detection", "value": "snotel-change-detection"},
+    # {"label": "Phantom Ranch, Grand Canyon Groundwater Model", "value": "pr-gndwater-model"},
     {"label": "Kaibab Plateau Spring PCA and Clustering Analysis", "value": "kaibab-pca"},
-    {"label": "Roaring Springs Precipitation Response Analysis", "value": "rs-precip-response"},
-    {"label": "This website", "value": "CV"},
-    {"label": "Collection of smaller projects", "value": "small-projects"}
+    # {"label": "Roaring Springs Precipitation Response Analysis", "value": "rs-precip-response"},
+    # {"label": "This website", "value": "CV"},
+    # {"label": "Collection of smaller projects", "value": "small-projects"}
+    {'label': 'Other Projects', 'value': 'other-projects'}
 ]
 #
 projects_dropdown = html.Div(id='proj-selector-Div',
@@ -21,7 +24,7 @@ projects_dropdown = html.Div(id='proj-selector-Div',
                  dbc.Select(
                      id='project-selector',
                      options=projects,
-                     value='snotel-regression-tool'
+                     value='wsor'
                  )
                  ]
                          )
@@ -37,23 +40,10 @@ def Projects(project_selection):
         return snotel_regr_tool
     if project_selection == "kaibab-pca":
         return kp_waterchem
+    if project_selection == 'wsor':
+        return wsor
+    if project_selection == 'other-projects':
+        return other_projects
     else:
         pass
     
-    
-#     a = RoseScatterPlot(skill_selection)
-#     a.rose_scatter_plot()
-#
-#
-#     RosePlot = (
-#             html.Div(
-#                 children=[
-#                     dcc.Graph(
-#                         figure=a.rose_plot,
-#                         # responsive=True,
-#                     )
-#                 ]
-#             ),
-#     )
-#
-#     return RosePlot

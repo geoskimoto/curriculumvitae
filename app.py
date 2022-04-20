@@ -47,10 +47,7 @@ app.layout = dbc.Container([
               #             )
               #         ])
               #     ),
-              # html.Img(src="https://lh3.googleusercontent.com/YA0Z6b1KlLrs3Wbk5QM3n4mQ6RwqEEwunCObeLSgoqfaBw-CSXUbpD78k0Lq7_hsQa4dKjIvDOqnpIYrpmjczvloymnGQ2JxNB8ZUi4MJ_5IGlVqBOh2gElVqy3ankXSkIeDt0flzT4=w2400?source=screenshot.guru" 
-                        # )],
-                        
-              #html.Img(src='data:image/jpeg;base64,{}'.format(encoded_image.decode))],
+
               # html.Div([Contact.Contact]),
               ]),
     html.Div(Contact.Contact),
@@ -67,7 +64,6 @@ app.layout = dbc.Container([
                                     dbc.Col(
                                         html.Div([Experience]
                                                 ),
-                                        # width=8
                                     ),
                                     dbc.Col([
                                         dbc.Row(
@@ -113,14 +109,6 @@ app.layout = dbc.Container([
                                                     html.Div([FieldSkills.FieldSkills])
                                                 )
                                                 ])
-
-
-
-
-
-
-
-
                                         ])
                                     ],
                                     width=5)
@@ -129,27 +117,13 @@ app.layout = dbc.Container([
                             ]
                     ),
 
-                    # dbc.Tab(
-                    #     label="Skills",
-                    #     children=[
-                    #         dbc.Row(
-                    #             dbc.Row([
-                    #                 # dbc.Col(html.Div([skills_buttons]), width=3),
-                    #                 dbc.Col(id='my-skills2',
-                    #                         children = [
-                    #                             html.Div(id='rose-fig2')
-                    #                         ])
-                    #                          # ]),
-                    #             ])
-                    #         )
-                    #         ]),
                     dbc.Tab(
-                        label="Portfolio",
+                        label="Coding Portfolio",
                         children=[
                             dbc.Row(
                                 dbc.Col(
                                     [
-                                    # html.Br(),
+                                    html.Br(),
                                     html.Div([projects_dropdown]),
                                     html.Br(),
                                     html.Div(id='projects-div')
@@ -165,43 +139,7 @@ app.layout = dbc.Container([
     ])
 
 
-
-
-
-
-# @app.callback(Output('page-content', 'children'),
-#               [Input('url', 'pathname')])
-# def display_page(pathname):
-#     if pathname == '/Experience' or pathname == '/':
-#         return Experience
-#     elif pathname == '/Skills':
-#         return Skills
-#         # dbc.Card([
-#         #     html.Div([Skills]),
-#         #     dcc.Graph(id='figure',
-#         #     #           figure=ScatterPlot('DS').scatter_plot(),
-#         #     #           config=dict(displayModeBar=False)
-#         #               )
-#         # ],
-#         #     className='col-8')
-#     # elif parn Portfoliothname == '/Portfolio':
-#     #     #     retu
-#
-#     # elif pathname == '/dash-financial-report/full-view':
-#     #     return overview,pricePerformance,portfolioManagement,feesMins,distributions,newsReviews
-#     else:
-#         return None
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
 
 
