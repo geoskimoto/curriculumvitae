@@ -1,142 +1,205 @@
-import os
-from pathlib import Path
-
-# from Code_Portfolio import ...
-# from Field_Portfolio import ...
-# from Intro import intro
-from views import Header, Profile, Contact, Education, FieldSkills, skills_buttons
-from Portfolio import projects_dropdown
-from views.Skills import RoseScatterPlot
-from dash.dependencies import Input, Output, State
-from Experience import Experience
-# from views.Biography import Biography
-import base64
-from maindash import app
-from dash import html
-from dash import dcc
+from dash import html, dcc
 import dash_bootstrap_components as dbc
+from views import header, profile, contact, education, publications, fieldskills, skills_buttons
+from Portfolio import projects_dropdown
+from Experience import Experience
+from dbs import app
 
-image_filename = './P6170205.jpg' # replace with your own image
-encoded_image = base64.b64encode(open(image_filename, 'rb').read())
-
-# app.title = 'Favicon'
-app.title = "NSteele CV"
-
-server = app.server
-app.layout = dbc.Container([
-    html.Div(
-        [
-            dcc.Location(id='url', refresh=False),
-            # dcc.Link('Navigate to "/"', href='/'),
-            # html.Br(),
-            # dcc.Link('Navigate to "/page-2"', href='/page-2')
-        ]
-    ),
-    html.Div([Header,
-              # dbc.Card(
-              #     dbc.Row([
-              #         # dbc.Col(
-              #         #     html.Img(src='https://lh3.googleusercontent.com/NuT5Hk1fQ5bKoGjA_8Q40Xeh1fTS1nFXh0iqUkNh4z4amjYKWohXit4vguO6-5aRXLH2SMHtmZI9twykSUmgIStc4PjR5OF2oy0Dvzuj9-FJ_8hBQgTghCKsJebYkwkudoIfcvHpVgE=w2400',
-              #         #                  height='310px', width='225px'
-              #         #                  )
-              #         #     ),
-              #         dbc.Col(
-              #             html.P(
-              #                 html.Div([Profile.Profile])
-              #                 )
-              #             )
-              #         ])
-              #     ),
-
-              # html.Div([Contact.Contact]),
-              ]),
-    html.Div(Contact.Contact),
-    html.Br(),
-    dbc.Col(
-        children=[
-            dbc.Tabs(
-                children=[
-                    dbc.Tab(
-                        label="Experience",
-                        children=[
-                            dbc.Row(
-                                [
-                                    dbc.Col(
-                                        html.Div([Experience]
-                                                ),
-                                    ),
-                                    dbc.Col([
-                                        dbc.Row(
-                                            [
-                                                dbc.Col(
-                                                    html.Div([Education.Education])
-                                                    # html.Plaintext('Education')
-                                                )
-                                            ]
+app.layout = dbc.Container(
+    [
+        html.Div(
+            [
+                dcc.Location(id='url', refresh=False),
+            ]
+        ),
+        html.Div(
+            [
+                header,
+                # profile.profile
+            ]
+        ),
+        html.Div(contact.contact),
+        html.Br(),
+        dbc.Col(
+            children=[
+                dbc.Tabs(
+                    children=[
+                        dbc.Tab(
+                            label="Experience",
+                            children=[
+                                dbc.Row(
+                                    [
+                                        dbc.Col(
+                                            html.Div(
+                                                [Experience]
+                                            ),
                                         ),
-                                        html.Hr(
-                                            style={'height': '1px',
-                                                   'background': 'teal',
-                                                   'margin': '15px 0px 15px'
-                                                   }
-                                        ),
-                                        dbc.Row([
-                                            dbc.Row([
-                                                dbc.Col(
-                                                    html.Div(
-                                                        [
-                                                            html.H4('Computer Skills',
-                                                                style={
-                                                                    'margin':'10px',
-                                                                    'text-align': 'center'
-                                                                }
-                                                            ),
-                                                            html.Br(),
-                                                            skills_buttons
-                                                        ]
+                                        dbc.Col([
+                                            dbc.Row(
+                                                [
+                                                    dbc.Col(
+                                                        html.Div([education.education])
                                                     )
-                                                ),
-                                                dbc.Col(id='my-skills',
-                                                        children=[
-                                                            html.Div(id='rose-fig'),
-                                                            dcc.Tooltip(id="graph-tooltip")
-                                                        ]
-                                                        )
                                                 ]
                                             ),
+                                            html.Hr(
+                                                style={'height': '1px',
+                                                       'background': 'teal',
+                                                       'margin': '15px 0px 15px'
+                                                       }
+                                            ),
                                             dbc.Row([
-                                                dbc.Col(
-                                                    html.Div([FieldSkills.FieldSkills])
-                                                )
-                                                ])
-                                        ])
-                                    ],
-                                    width=5)
-                                    ]
-                            )
-                            ]
-                    ),
+                                                dbc.Row([
+                                                    dbc.Col(
+                                                        html.Div(
+                                                            [
+                                                                html.H4('Developer Skills',
+                                                                    style={
+                                                                        'margin':'10px',
+                                                                        'text-align': 'center'
+                                                                    }
+                                                                ),
+                                                                html.Br(),
+                                                                skills_buttons,
+                                                                html.Br(),
+                                                                html.P([
+                                                                    'Hover over points to see stack and abilities.'
+                                                                ],
+                                                                    style={'text-align': 'center'})
+                                                            ]
+                                                        )
+                                                    ),
+                                                    dbc.Col(id='my-skills',
+                                                            children=[
+                                                                html.Div(
+                                                                    id='rose-fig',
+                                                                    children=[],
+                                                                    style={
+                                                                        # "width": "600px",
+                                                                        # "height": "400px",
+                                                                        "margin": "auto",
+                                                                        # 'textAlign': 'center',
+                                                                        # 'align': 'center',
+                                                                        # "display": "inline-block",
+                                                                        # 'display': 'flex',
+                                                                        # 'justify-content': 'center',
+                                                                        # "border": "3px #5c5c5c solid",
+                                                                        # "padding-top": "5px",
+                                                                        # "padding-left": "1px",
+                                                                        # "overflow": "hidden"
+                                                                    }
+                                                                ),
+                                                                dcc.Tooltip(id="graph-tooltip")
+                                                            ],
+                                                            )
+                                                    ]
+                                                ),
 
-                    dbc.Tab(
-                        label="Coding Portfolio",
-                        children=[
-                            dbc.Row(
-                                dbc.Col(
-                                    [
-                                    html.Br(),
-                                    html.Div([projects_dropdown]),
-                                    html.Br(),
-                                    html.Div(id='projects-div')
-                                    ]
+
+                                                html.Hr(
+                                                    style={
+                                                        'height': '1px',
+                                                        'background': 'teal',
+                                                        'margin': '15px 0px 15px'
+                                                        }
+                                                ),
+                                                dbc.Row(
+                                                    [
+                                                        dbc.Col(
+                                                            html.Div([fieldskills.geo_skills])
+                                                        )
+                                                    ]
+                                                ),
+
+
+                                                html.Hr(
+                                                    style={'height': '1px',
+                                                           'background': 'teal',
+                                                           'margin': '15px 0px 15px'
+                                                           }
+                                                ),
+                                                dbc.Row(
+                                                    [
+                                                        dbc.Col(
+                                                            html.Div([fieldskills.ems_certs])
+                                                        ),
+                                                    ]
+                                                ),
+
+
+                                                html.Hr(
+                                                    style={
+                                                        'height': '1px',
+                                                        'background': 'teal',
+                                                        'margin': '15px 0px 15px'
+                                                         }
+                                                ),
+
+                                                dbc.Row([
+                                                    dbc.Col(
+                                                        html.Div([fieldskills.other_certs])
+                                                    )
+                                                    ]
+                                                ),
+
+
+                                                html.Hr(
+                                                    style={
+                                                        'height': '1px',
+                                                        'background': 'teal',
+                                                        'margin': '15px 0px 15px'
+                                                        }
+                                                )
+                                            ])
+                                        ],
+                                            width=4
+                                        )
+                                        ]
                                 )
-                            ),
-                        ],
-                    ),
-                    
-                    
-                        ]),
-                    ]),
-    ])
+                                ]
+                        ),
+
+                        dbc.Tab(
+                            label="Coding Portfolio",
+                            children=[
+                                dbc.Row(
+                                    dbc.Col(
+                                        [
+                                            html.Br(),
+                                            html.Div([projects_dropdown]),
+                                            html.Br(),
+                                            html.Div(id='projects-div'),
+                                        ]
+                                    )
+                                ),
+                            ],
+                        ),
+
+
+                        dbc.Tab(
+                            [
+                                dbc.Row(
+                                    dbc.Col(
+                                        [
+                                            html.Div([publications.publications])
+                                        ]
+                                    )
+                                )
+                            ],
+                            label="Publications"
+                        )
+
+
+                    ]
+                ),
+            ]
+        ),
+    ],
+    fluid=True
+    # class_name='container-md'
+)
+app.title = "NSteele CV"
+server = app.server
 
 
 if __name__ == '__main__':
